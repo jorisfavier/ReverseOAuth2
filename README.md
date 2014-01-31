@@ -1,7 +1,12 @@
 ReverseOAuth2
 ===========
 
-[![Build Status](https://secure.travis-ci.org/silvester/ReverseOAuth2.png?branch=master)](https://travis-ci.org/silvester/ReverseOAuth2)
+Based on silvester reverse-oauth2 module for ZF2, modification done to connection options - they are now configurable
+Description below (except composer installation path) is original silvester's work. How to set connection options is show in reverseoauth2.local.php.dist file.
+
+
+ReverseOAuth2
+===========
 
 Another OAuth2 client for ZF2. It provides clients for github, google, facebook and linkedin others soon to come. 
 
@@ -22,7 +27,7 @@ Installation with Composer
 1. Add this project in your `composer.json`:
 ```json
     "require": {
-        "silvester/reverse-oauth2": "dev-master",
+        "hoozar/reverse-oauth2": "dev-master",
     }
 ```
 
