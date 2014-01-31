@@ -45,17 +45,17 @@ abstract class AbstractOAuth2Client
         } elseif(isset($this->session->token->access_token)) {
             
             $urlProfile = $this->options->getInfoUri() . '?access_token='.$this->session->token->access_token;
-            
+
             $client = $this->getHttpclient()
                             ->resetParameters(true)
-                            ->setHeaders(array('Accept-encoding' => ''))
+                            ->setHeaders(array('Accept-encoding' => 'gzip, deflate', 'Cache-Control' => 'no-cache, must-revalidate'))
                             ->setMethod(Request::METHOD_GET)
                             ->setUri($urlProfile);
             
             $retVal = $client->send()->getContent();
 
             if(strlen(trim($retVal)) > 0) {
-                
+
                 $this->session->info = \Zend\Json\Decoder::decode($retVal);
                 return $this->session->info;
                 
@@ -136,11 +136,20 @@ abstract class AbstractOAuth2Client
     
     public function getHttpClient()
     {
-        
-        if(!$this->httpClient) {
-            $this->httpClient = new OAuth2HttpClient(null, array('timeout' => 30, 'adapter' => '\Zend\Http\Client\Adapter\Curl'));
+        $connOptions = array(
+            'timeout' => 30,
+            //'adapter' => '\Zend\Http\Client\Adapter\Curl'
+        );
+        $connOptions['adapter'] = $this->options->getConnAdapter();
+        $connOptionsConf = $this->options->getConnOpts();
+        if (is_array($connOptionsConf) && count($connOptionsConf) > 0) {
+            $connOptions['curloptions'] = $connOptionsConf;
         }
-        
+
+        if(!$this->httpClient) {
+            $this->httpClient = new OAuth2HttpClient(null, $connOptions);
+        }
+
         return $this->httpClient;
         
     }

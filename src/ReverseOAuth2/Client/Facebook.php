@@ -28,11 +28,11 @@ class Facebook extends AbstractOAuth2Client
     {
         
         if(isset($this->session->token)) {
-        
+
             return true;
             
         } elseif(strlen($this->session->state) > 0 AND $this->session->state == $request->getQuery('state') AND strlen($request->getQuery('code')) > 5) {
-                     
+
             $client = $this->getHttpClient();
             
             $client->setUri($this->options->getTokenUri());

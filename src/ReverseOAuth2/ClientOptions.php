@@ -21,6 +21,10 @@ class ClientOptions extends AbstractOptions
 
     protected $redirectUri;
 
+    protected $connOpts;
+
+    protected $connAdapter;
+
     
     public function getScope()
     {
@@ -90,6 +94,26 @@ class ClientOptions extends AbstractOptions
     public function setRedirectUri($redirectUri)
     {
         $this->redirectUri = $redirectUri;
+    }
+
+    public function getConnOpts()
+    {
+        return $this->connOpts;
+    }
+
+    public function setConnOpts($connOpts)
+    {
+        $this->connOpts = $connOpts;
+    }
+
+    public function getConnAdapter()
+    {
+        return $this->connAdapter;
+    }
+
+    public function setConnAdapter($connAdapter)
+    {
+        $this->connAdapter = $connAdapter;
     }
 
 }
