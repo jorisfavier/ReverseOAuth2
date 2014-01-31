@@ -15,6 +15,22 @@ return array(
             'client_id'     => 'your id',
             'client_secret' => 'your secret',
             'redirect_uri'  => 'your callback url which links to your controller',
+            // we can change scope of information received from FB
+            'scope'         => array('email'),
+
+            // this params are added by hoozar
+            'connAdapter'   => 'Zend\Http\Client\Adapter\Curl',
+            //'connAdapter'   => 'Zend\Http\Client\Adapter\Socket'
+            'connOpts'      => array(
+                /* CURL adapter options */
+                'CURLOPT_FRESH_CONNECT'     => true,
+                //'CURLOPT_SSL_VERIFYPEER'    => false,
+
+                /* Socket adapter options */
+                'sslcapath'                 => "your/path/to/directory/contains/cacert.pem_file",
+                'sslverifypeer'             => false,
+            )
+
         ),
         'linkedin' => array(
             'client_id'     => 'your api key',
