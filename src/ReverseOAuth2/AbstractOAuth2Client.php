@@ -48,7 +48,7 @@ abstract class AbstractOAuth2Client
 
             $client = $this->getHttpclient()
                             ->resetParameters(true)
-                            ->setHeaders(array('Accept-encoding' => 'gzip, deflate', 'Cache-Control' => 'no-cache, must-revalidate'))
+                            ->setHeaders(array('Accept-encoding' => 'http', 'Cache-Control' => 'no-cache, must-revalidate'))
                             ->setMethod(Request::METHOD_GET)
                             ->setUri($urlProfile);
             
