@@ -1,9 +1,9 @@
 {
-    "name": "hoozar/reverse-oauth2",
+    "name": "jorisfavier/reverse-oauth2",
     "description": "Oauth2 client for zf2. Facebook, github and google is supported.",
     "minimum-stability": "dev",
     "type" : "module",
-    "homepage" : "https://github.com/hoozar/ReverseOAuth2",
+    "homepage" : "https://github.com/jorisfavier/ReverseOAuth2",
     "keywords" : ["oauth2", "zf2", "module"],
     "license" : "MIT",
     "authors": [
@@ -16,6 +16,11 @@
             "name": "Hoozar",
             "email": "hoozar@interia.pl",
             "homepage": "none"
+        },
+        {
+            "name": "Joris Favier",
+            "email": "joris.favier@gmail.com",
+            "homepage": "jorisfavier.fr"
         }
     ],
     "require": {

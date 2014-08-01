@@ -36,15 +36,20 @@ abstract class AbstractOAuth2Client
         $this->session = new Container('ReverseOAuth2_'.get_class($this));
     }
     
-    public function getInfo()
+    public function getInfo($newInfo=false)
     {
-        if(is_object($this->session->info)) {
+        if(is_object($this->session->info) && !$newInfo) {
             
             return $this->session->info;
         
         } elseif(isset($this->session->token->access_token)) {
             
-            $urlProfile = $this->options->getInfoUri() . '?access_token='.$this->session->token->access_token;
+            if(!strpos($this->options->getInfoUri(), "?")){
+                $urlProfile = $this->options->getInfoUri() . '?access_token='.$this->session->token->access_token;
+            }
+            else{
+                $urlProfile = $this->options->getInfoUri() . '&access_token='.$this->session->token->access_token;
+            }
 
             $client = $this->getHttpclient()
                             ->resetParameters(true)
@@ -53,12 +58,14 @@ abstract class AbstractOAuth2Client
                             ->setUri($urlProfile);
             
             $retVal = $client->send()->getContent();
-
-            if(strlen(trim($retVal)) > 0) {
-
+            $contentType = $client->send()->getHeaders()->get("Content-Type")->getFieldValue();
+            if(strlen(trim($retVal)) > 0 && (strpos($contentType,"text") > 0 || strpos($contentType,"text")===0) ) {
                 $this->session->info = \Zend\Json\Decoder::decode($retVal);
                 return $this->session->info;
                 
+            } else if($contentType=="image/jpeg") {
+                return $retVal;
+
             } else {
                 
                 $this->error = array('internal-error' => 'Get info return value is empty.');
